@@ -7,7 +7,7 @@ personales de forma intuitiva y accesible.
 
 
 Autores:
-Cahuana Lopez, Luz Margarita - u20241e017
+Cahuana Lopez, Luz Margarita - u20241e017<br>
 Candia Molinia, Anyelo Dilan - u20241e004
 Castillón Rucana, Nicole Virginia - u20241e055
 Eustaquio Romani, Bruno Misael - u20241d981
