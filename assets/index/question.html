@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preguntas frecuentes – InvertU</title>
+
+    <!-- Fuentes y hoja de estilos -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/styles/question.css" />
+</head>
+
+<body>
+    <main class="faq-container">
+        <h1 class="faq-heading">Preguntas frecuentes</h1>
+
+        <!-- Botones de navegación -->
+        <div class="faq-buttons">
+            <button class="active" onclick="showQuestion(1, this)">1</button>
+            <button onclick="showQuestion(2, this)">2</button>
+            <button onclick="showQuestion(3, this)">3</button>
+            <button onclick="showQuestion(4, this)">4</button>
+            <button onclick="showQuestion(5, this)">5</button>
+        </div>
+
+        <!-- Contenido de la pregunta seleccionada -->
+        <div id="faq-content" class="faq-content">
+            <!-- Contenedor del texto de la pregunta y la respuesta -->
+            <div class="faq-text">
+                <h2 id="question-title">
+                    ¿Cómo puedo registrar un ingreso o un gasto en InvertU?
+                </h2>
+                <p id="question-answer">
+                    Desde el panel principal, selecciona el apartado “Clasificación de ingresos y gastos”.
+                    Luego elige si deseas registrar un ingreso o un gasto, indica si es fijo o variable,
+                    coloca el monto y selecciona una categoría (como “comida”, “transporte” o “estudio”).<br />
+                    También puedes añadir una nota o imagen (como una boleta o comprobante).<br />
+                    InvertU guardará automáticamente el registro y actualizará tus gráficos de balance mensual.
+                </p>
+            </div>
+
+            <!-- Imagen del personaje -->
+            <div class="faq-image">
+                <img id="question-image" src="assets/images/chatbot-1.png" alt="Personaje InvertU" width="280"
+                    height="auto" />
+            </div>
+        </div>
+    </main>
+
+    <!-- Script principal -->
+    <script src="assets/scripts/question.js"></script>
+</body>
+
+</html>
