@@ -1,0 +1,11 @@
+{
+  "android": {
+    "qr": "assets/images/qr.png",
+    "title": "Descarga en Google Play"
+  },
+  "ios": {
+    "qr": "assets/images/qr.png",
+    "title": "Descarga en App Store"
+  }
+}
+  
