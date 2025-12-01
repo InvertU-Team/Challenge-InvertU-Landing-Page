@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Lato', sans-serif; 
+}
+
+/* TÍTULO PRINCIPAL */
+.rate-title {
+  color: #1f844a;
+  font-size: 32px; 
+  padding: 20px 0 0 20px; 
+}
+
+/* ==========================
+   CONTENEDOR PRINCIPAL
+========================== */
+
+.rate-section {
+  background-color: #ffedbf;
+  width: 100%;
+  height: 500px; 
+  display: flex;
+  gap: 40px; 
+  align-items: center;
+  padding-left: 40px; 
+}
+
+.rate-bird-img {
+  width: 260px; 
+}
+
+.rate-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px; 
+}
+
+/* ==========================
+   MENSAJE
+========================== */
+
+.rate-message {
+  background-color: white;
+  border: 2px solid #d8d8d8;
+  height: 90px; 
+  width: 670px; 
+  border-radius: 20px; 
+  padding: 20px 25px;
+  position: relative;     
+}
+
+.rate-message-text {
+  font-size: 24px; 
+  text-align: left; 
+  color: #2D3E50; 
+}
+
+/* PUNTA DEL GLOBO */
+
+.rate-message::after {
+  content: "";
+  position: absolute;
+  left: -22px;
+  top: 25px; 
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 15px 22px 15px 0;
+  border-color: transparent white transparent transparent;
+}
+
+.rate-message::before {
+  content: "";
+  position: absolute;
+  left: -24px;
+  top: 25px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 17px 24px 17px 0;
+  border-color: transparent #d8d8d8 transparent transparent;
+}
+
+/* ==========================
+   ESTRELLAS
+========================== */
+
+.rate-stars {
+  display: flex;
+  height: 100px; 
+  width: 600px; 
+  gap: 30px;
+  justify-content: center;
+}
+
+.rate-star-img {
+  width: 65px;
+}
+
+.rate-star-btn {
+  background-color: #ffedbf;
+  transition: transform 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.rate-star-btn:hover .rate-star-img {
+    transform: scale(1.2);
+}
+
+/* ==========================
+   BOTÓN ENVIAR
+========================== */
+
+.rate-submit-btn {
+  background-color: #1f844a; 
+  color: white;
+  height: 55px; 
+  width: 200px; 
+  border-radius: 12px; 
+  font-size: 20px; 
+  font-weight: 700; 
+  border: none;
+  cursor: pointer;
+}
+
+/* ESPACIADOR */
+
+.rate-space {
+  background-color: white;
+  height: 10px;
+  width: 100%;
+}
+
+/* ==========================
+   FOOTER
+========================== */
+
+.rate-footer {
+  background-color: #263238;
+  width: 100%;
+  padding: 3rem 0rem; 
+}
+
+.rate-footer-content {
+  display: flex;
+  align-items: flex-start; 
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 40px; 
+}
+
+.rate-footer-card {
+  color: white;
+  font-size: 16px; 
+}
+
+.rate-footer-logo {
+  display: block;
+  margin: 0 auto;
+  width: 120px; 
+}
+
+.rate-footer-title {
+  margin-bottom: 14px;
+  font-size: 20px; 
+  color: white;
+}
+
+.rate-footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
+  color: white;
+}
+
+.rate-footer-email {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: 1px solid #ffffff80;
+  padding: 8px 12px;
+  border-radius: 12px;
+  width: 240px;
+}
+
+.rate-email-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 14px;
+}
+
+.rate-email-input::placeholder {
+  color: #ffffffaa;
+}
+
+.rate-email-send {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+}
+
+/* ==========================
+   MODAL
+========================== */
+
+.rate-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.rate-modal-box {
+  background: #B2D3C2;
+  padding: 40px 50px;
+  border-radius: 15px;
+  text-align: center;
+  width: 800px;
+  max-width: 90%;
+  border: 2px solid #7fbda4;
+}
+
+.rate-modal-title {
+  font-size: 26px;
+  margin-bottom: 20px;
+  color: #2D3E50;
+}
+
+.rate-modal-text {
+  font-size: 18px;
+  color: #2D3E50;
+}
+
+.rate-modal-btn {
+  background: #e7a522;
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 10px;
+  margin-top: 25px;
+  cursor: pointer;
+  font-size: 16px;
+}
