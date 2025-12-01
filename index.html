@@ -5,19 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>InvertU Sitio Web</title>
 
-    <!-- Estilos globales Hola--> 
+    <!-- Fuentes -->
     <link
       href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;800&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Estilos principales -->
     <link rel="stylesheet" href="assets/styles/style.css" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="assets/styles/major.css" />
+    <link rel="stylesheet" href="assets/styles/rate.css" />
   </head>
 
   <body>
+    <!-- NAVBAR -->
     <header class="navbar">
       <div class="logo-container">
-        <a href="#principales">
+        <a href="#">
           <img
             src="assets/images/logo.png"
             alt="InvertU Logo"
@@ -25,21 +29,15 @@
           />
         </a>
       </div>
-      <nav class="nav-links" aria-label="Primaria">
-        <a href="#principales" class="nav-button active" data-page="principales"
-          >Principales</a
-        >
-        <a href="#nosotros" class="nav-button" data-page="nosotros">Nosotros</a>
-        <a href="#funciones" class="nav-button" data-page="funciones"
-          >Funciones</a
-        >
-        <a href="#testimonios" class="nav-button" data-page="testimonios"
-          >Testimonios</a
-        >
-        <a href="#guia-de-uso" class="nav-button" data-page="guia-de-uso"
-          >Guía de uso</a
-        >
 
+      <nav class="nav-links" aria-label="Primaria">
+        <a href="#" class="nav-button active" data-page="principales">Principales</a>
+        <a href="#" class="nav-button" data-page="nosotros">Nosotros</a>
+        <a href="#" class="nav-button" data-page="funciones">Funciones</a>
+        <a href="#" class="nav-button" data-page="testimonios">Testimonios</a>
+        <a href="#" class="nav-button" data-page="guia">Guía de uso</a>
+
+        <!-- Buscador -->
         <form
           role="search"
           class="search-form"
@@ -61,7 +59,7 @@
               class="search-input"
               type="search"
               name="q"
-              placeholder="Search"
+              placeholder="Buscar"
               autocomplete="off"
               enterkeyhint="search"
               aria-label="Search query"
@@ -72,11 +70,7 @@
               class="button-icon button-clear"
               aria-label="Limpiar búsqueda"
             >
-              <img
-                src="assets/images/clear.png"
-                alt="Clear search icon"
-                class="icon"
-              />
+              <img src="assets/images/clear.png" alt="Clear" class="icon" />
             </button>
 
             <button
@@ -93,27 +87,162 @@
           </section>
         </form>
       </nav>
-
-      <!-- Formulario de búsqueda como hermano del nav (mejor layout) -->
     </header>
 
-    <!-- 1ª SECCIÓN: major -->
+    <!-- HERO -->
+    <section>
+      <main class="hero">
+        <div class="container hero-inner">
+          <div class="text">
+            <h1 class="hero-title">
+              InvertU:&nbsp;<span class="green">La&nbsp;plataforma&nbsp;#1</span><br />
+              <span class="line">De finanzas personales</span>
+            </h1>
+
+            <p class="subtitle">El momento de cumplir tus sueños es ahora</p>
+
+            <nav>
+              <button
+                onclick="window.open('assets/index/forms.html', '_blank')"
+                class="sign-up"
+              >
+                Regístrate aquí para mayor información
+              </button>
+            </nav>
+          </div>
+
+          <div class="image">
+            <img src="assets/images/imagen-inicio.png" alt="hero image" />
+          </div>
+        </div>
+      </main>
+
+      <section class="info-band">
+        <h3>Disponible invertU en:</h3>
+      </section>
+
+      <nav class="platforms">
+        <button type="button" data-platform="android">ANDROID</button>
+        <button type="button" data-platform="ios">IOS</button>
+      </nav>
+
+      <div class="modal" id="qr-modal" aria-hidden="true" role="dialog">
+        <div class="modal__dialog">
+          <button class="modal__close" aria-label="cerrar">✕</button>
+
+          <h3 id="qr-title" class="modal__title">descarga</h3>
+          <img id="qr-image" class="modal__qr" src="" alt="código qr" />
+          <p class="modal__note">escanea el código con tu cámara</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- JS de la sección principal -->
+    <script src="assets/scripts/major.js" defer></script>
+
+    <!-- SENTINELS + CONTENEDORES (SPA) -->
     <div id="sentinel-1" aria-hidden="true"></div>
     <div id="primero-container"></div>
 
-    <!-- 2ª SECCIÓN: question -->
     <div id="sentinel-2" aria-hidden="true"></div>
     <div id="segundo-container"></div>
 
-    <!-- 3ª SECCIÓN: funtion -->
     <div id="sentinel-3" aria-hidden="true"></div>
     <div id="tercero-container"></div>
 
-    <!-- 4ª SECCIÓN: question -->
     <div id="sentinel-4" aria-hidden="true"></div>
     <div id="cuarto-container"></div>
 
-    <!-- Lógica de carga diferida -->
+    <!-- SPRINT 2 -->
+    <div id="sentinel-5" aria-hidden="true"></div>
+    <div id="quinto-container"></div>
+
+    <div id="sentinel-6" aria-hidden="true"></div>
+    <div id="sexto-container"></div>
+
+    <div id="sentinel-7" aria-hidden="true"></div>
+    <div id="septimo-container"></div>
+
+    <div id="sentinel-8" aria-hidden="true"></div>
+    <div id="octavo-container"></div>
+
+    <!-- CARGA DIFERIDA SPA -->
     <script src="assets/scripts/app.js" defer></script>
+
+    <!-- SECCIÓN RATE -->
+    <h1 class="rate-title">Califícanos</h1>
+
+    <div class="rate-section">
+      <img src="assets/images/bird.png" class="rate-bird-img" />
+
+      <div class="rate-box">
+        <div class="rate-message">
+          <p class="rate-message-text">
+            Como nos importa tu opinión es necesario que nos des una
+            calificación
+          </p>
+        </div>
+
+        <div class="rate-stars">
+          <div class="rate-star"><button class="rate-star-btn"><img src="assets/images/star-off.png" class="rate-star-img" /></button></div>
+          <div class="rate-star"><button class="rate-star-btn"><img src="assets/images/star-off.png" class="rate-star-img" /></button></div>
+          <div class="rate-star"><button class="rate-star-btn"><img src="assets/images/star-off.png" class="rate-star-img" /></button></div>
+          <div class="rate-star"><button class="rate-star-btn"><img src="assets/images/star-off.png" class="rate-star-img" /></button></div>
+          <div class="rate-star"><button class="rate-star-btn"><img src="assets/images/star-off.png" class="rate-star-img" /></button></div>
+        </div>
+
+        <button class="rate-submit-btn">ENVIAR</button>
+      </div>
+    </div>
+
+    <div class="rate-space"></div>
+
+    <footer class="rate-footer">
+      <nav class="rate-footer-content">
+        <div class="rate-footer-card">
+          <img class="rate-footer-logo" src="assets/images/inverTu.png" />
+          <p class="rate-footer-text">Copyright © 2020 Landify UI Kit</p>
+          <p class="rate-footer-text">All rights reserved</p>
+        </div>
+
+        <div class="rate-footer-card">
+          <h2 class="rate-footer-title">Compañía</h2>
+          <div class="rate-footer-links">
+            <p>Sobre nosotros</p>
+            <p>Blog</p>
+            <p>Contáctanos</p>
+            <p>Testimonio</p>
+          </div>
+        </div>
+
+        <div class="rate-footer-card">
+          <h2 class="rate-footer-title">Soporte</h2>
+          <div class="rate-footer-links">
+            <p>Centro de ayuda</p>
+            <p>Términos y condiciones</p>
+            <p>Política de privacidad</p>
+            <p>Estado</p>
+          </div>
+        </div>
+
+        <div class="rate-footer-card">
+          <h2 class="rate-footer-title">Mantente conectado</h2>
+          <div class="rate-footer-email">
+            <input type="email" placeholder="Correo electrónico" class="rate-email-input" />
+            <button class="rate-email-send">▶</button>
+          </div>
+        </div>
+      </nav>
+    </footer>
+
+    <div id="rate-modal" class="rate-modal">
+      <div class="rate-modal-box">
+        <h2 class="rate-modal-title">COMENTARIO ENVIADO CORRECTAMENTE</h2>
+        <p class="rate-modal-text">Se ha enviado correctamente la solicitud</p>
+        <button class="rate-modal-btn">Aceptar</button>
+      </div>
+    </div>
+
+    <script src="assets/scripts/rate.js" defer></script>
   </body>
 </html>
