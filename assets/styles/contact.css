@@ -1,0 +1,529 @@
+/* ==================== CONFIGURACIÓN GENERAL ==================== */
+/* Define reglas base de comportamiento y estilo del documento */
+html { scroll-behavior: smooth; }
+* { box-sizing: border-box; }
+
+body {
+  /* Fuente y renderizado */
+  font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-synthesis-weight: none;
+  color: #1d1b20;
+  margin: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+/* ==================== BARRA DE NAVEGACIÓN ==================== */
+/* Estructura principal del header con tres columnas: logo, menú, buscador */
+.navbar {
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* Logo | Links | Buscador */
+  align-items: center;                  /* Centra verticalmente */
+  gap: 28px;                            /* Espacio entre columnas */
+  padding: 2px 50px;                    /* Espaciado interno vertical y horizontal */
+  background-color: #ffffff;          /* Fondo semitransparente */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra inferior sutil */
+  position: fixed; top: 0; left: 0; right: 0; /* Barra fija en la parte superior */
+  z-index: 1000;                        /* Siempre visible por encima del contenido */
+}
+
+/* Tamaño del logotipo */
+.logo-icon { height: 95px; }
+
+/* Contenedor de enlaces (botones del menú) centrado */
+.nav-links {
+  display: flex;
+  justify-content: center;
+  gap: 13px;    /* Espacio entre botones */
+  flex-wrap: wrap; /* Si no caben, bajan a otra línea */
+}
+
+/* Estilos generales para textos e inputs dentro de la navbar */
+.nav-button,
+.search-input,
+.search-box,
+.nav-links a,
+button,
+input,
+textarea {
+  font-family: inherit;
+}
+
+/* -------------------- BOTONES DE NAVEGACIÓN -------------------- */
+/* Botones verdes del menú principal */
+.nav-button {
+  background-color: #1f8a4a; /* Verde corporativo */
+  color: #ffffff;            /* Texto blanco */
+  text-decoration: none;
+  padding: 10px 24px;        /* Tamaño interior del botón */
+  font-size: 20px;
+  font-weight: 700;          /* Negrita (Lato Bold) */
+  cursor: pointer;
+  border: none;
+  border-radius: 20px;       /* Esquinas redondeadas */
+  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* Sombra sutil */
+}
+
+/* Cambio de color al pasar el cursor */
+.nav-button:hover { background-color: #239353; }
+
+/* Efecto de “activo” o presionado */
+.nav-button.active {
+  background-color: #239353;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ==================== BUSCADOR (SEARCH BAR) ==================== */
+/* Contenedor que ubica el buscador a la derecha */
+.search-form {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-width: 0;
+}
+
+/* Caja del buscador (contenedor redondeado con íconos e input) */
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 13px;                       /* Espacio entre íconos e input */
+  width: clamp(320px, 31vw, 520px);/* Ancho responsivo */
+  height: 48px;                    /* Altura fija */
+  padding-inline: 10px;            /* Margen interno lateral */
+  border: 1px solid transparent;
+  border-radius: 999px;            /* Forma de píldora */
+  background: #bdbdbd;             /* Fondo gris claro */
+  transition: box-shadow 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+/* Estado de enfoque (cuando se hace clic dentro del buscador) */
+.search-box:focus-within {
+  border-color: rgba(10, 132, 255, 0.35);
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.25);
+  background: #e9e9e9;
+}
+
+/* Botones de iconos (lupa, limpiar, micrófono) */
+.button-icon {
+  display: grid;
+  place-items: center;     /* Centra los íconos */
+  border: 0;
+  background: transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  flex-shrink: 0;          /* Mantiene tamaño fijo */
+  padding: 6px;
+}
+
+/* Contorno visible al navegar con teclado */
+.button-icon:focus-visible {
+  outline: 2px solid #0a84ff;
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+/* Tamaño uniforme de todos los íconos */
+.icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+/* Campo de texto donde se escribe la búsqueda */
+.search-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  outline: 0;
+  font-size: 20px;
+  font-weight: 400;
+  color: #203e50;
+  padding-inline: 6px;
+}
+
+/* Color del texto de ejemplo (placeholder) */
+.search-input::placeholder { color: #555; }
+
+/* Botón para limpiar texto (aparece con JS cuando hay contenido) */
+.button-clear {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+}
+.button-clear.is-visible { visibility: visible; opacity: 1; }
+
+/* ==================== EFECTOS Y ANIMACIONES ==================== */
+/* Transiciones deshabilitadas para usuarios con preferencia de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .button-clear, .search-box { transition: none; }
+}
+
+/* Elimina el botón nativo de limpiar de los inputs de tipo search */
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+/* ==================== ADAPTACIÓN RESPONSIVA NAVBAR ==================== */
+/* Ajustes para pantallas medianas (tablets) */
+@media (max-width: 1024px) {
+  .search-box { width: clamp(280px, 45vw, 520px); }
+}
+
+/* Ajustes para móviles: la barra se apila verticalmente */
+@media (max-width: 768px) {
+  .navbar {
+    grid-template-columns: 1fr; /* Elementos en una columna */
+    grid-auto-rows: auto;
+    gap: 60px;
+    padding: 10px 16px;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .search-form {
+    justify-content: center;
+    width: 100%;
+  }
+  .search-box {
+    width: min(640px, calc(100% - 24px)); /* Ocupa casi todo el ancho */
+  }
+}
+
+/* ==================== Stylos de contáctanos ==================== */
+main {
+  padding-top: 100px; 
+}
+.contact-title {
+  font-family: 'Lato', sans-serif;
+  font-size: 36px;
+  font-weight: 900;
+  margin: 12px 0 10px 40px;
+  text-align: left; 
+  color: #FFB900; 
+}
+
+.contact-section{
+  background-color:  #B2D3C2;
+  padding: 24px 40px 32px;
+  font-family: 'Lato', sans-serif;
+  min-height: 536px;
+}
+
+/* Botones amarilos */
+.contact-button {
+  background-color: #FFB900;; 
+  color:  #2D3E50;           
+  border-radius: 8px;
+  padding: 8px 16px;
+  margin-top: 10px; /* ← SEPARADOR ARRIBA DEL BOTÓN */
+  font-weight: 800;
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+  margin-bottom: 40px;  /* ← SEPARADOR DEBAJO DEL BOTÓN */
+}
+
+.contact-staffs {
+  text-align: center; /* ← centra todo el texto y el botón en ese div */
+}
+
+.contact-staffs img {
+  width: 120px; height: 120px;                   /* tamaño del avatar */
+  border-radius: 50%;                            /* círculo */
+  object-fit: cover;                             /* recorte limpio */
+  margin-bottom: 10px;                           /* separación con el nombre */
+}
+.contact-staffs h3 {
+  margin: 8px 0 4px;                             /* espaciado compacto */
+  font-weight: 700;                              /* bold */
+  font-size: 25px;                               /* tamaño del nombre */
+  color: #000;                                   /* texto negro */
+}
+
+.contact-staffs p {
+  margin: 2px 0;
+  color: #000000;                                /* textos negros */
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.contact-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  max-width: 1200px;   /* ← limita el ancho total */
+  margin: 0 0 0 80px;  /* ← desplazado un poco a la derecha en desktop */
+}
+
+.contact-form {
+  flex: 2;                                       /* más ancho que la izquierda */
+  background: #D9D9D9;                           /* gris claro de tarjeta */
+  border-radius: 18px;                           /* radio amplio */
+  padding: 28px 34px;                            /* respiración interna */
+  margin-left: 150px;
+}
+
+.form-title{
+  text-align: center;                            /* centrado */
+  font-weight: 800;                              /* grueso */
+  color: #103E13;                                /* gris azulado */
+  letter-spacing: .4px;                          /* separación sutil */
+  margin: 0 0 30px 0;
+}
+
+.form-row {
+  display: grid;                                 /* grid simple */
+  grid-template-columns: 160px 1fr;              /* etiqueta fija | input fluido */
+  text-align: center;                            /* centra texto dentro de celdas */
+  column-gap: 14px;                              /* separación horizontal */
+  margin-bottom: 14px;                           /* espacio entre filas */
+}
+
+.form-row label{
+  background-color: #FFB900 ; 
+  color: #000; 
+  font-size: 15px;
+  font-weight: 900;
+  text-align: center;
+  padding: 12px 30px 0px 30px;
+  border-radius: 12px;
+  height:40px;
+}
+
+.form-row input {
+  height:40px;
+  border-radius: 12px;
+  border: none;
+  font-size: 15px;
+  padding: 0 12px;
+  width: 400px;
+  margin-left: 60px;
+}
+
+/* Botón ENVIAR (píldora verde centrada) */
+.submit-btn {
+  display: block;                                /* permite margin auto */
+  width: 260px;                                  /* ancho visual */
+  margin: 18px auto 0;                           /* centrado */
+  background: #1F844A;                           /* verde marca */
+  color: #fff;                                   /* texto blanco */
+  border: none;
+  border-radius: 24px;                           /* píldora */
+  padding: 12px 24px;
+  font-size: 25px;                               /* grande */
+  font-weight: 900;                              /* extra bold */
+  letter-spacing: .5px;                          /* tracking sutil */
+  cursor: pointer;
+  box-shadow: 0 3px 0 rgba(0,0,0,.15);           /* sombra base */
+  transition: transform .05s ease, box-shadow .05s ease; /* micro-interacción */
+}
+
+/* Feedback al presionar */
+.submit-btn:active {
+  transform: translateY(1px);                    /* baja 1px */
+  box-shadow: 0 1px 0 rgba(0,0,0,.18);           /* sombra más corta */
+}
+
+/* Chip verde previo al textarea (33% opacidad) */
+.problem-label {
+  display: inline-block;
+  background: rgba(5, 255, 22, 0.33);           /* verde translúcido (33%) */
+  color: #000000;                                /* texto negro */
+  font-weight: 700;
+  font-size: 15px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  margin: 8px 0 20px;
+}
+
+/* Área de texto (blanca y redondeada) */
+textarea {
+  width: 100%;
+  min-height: 140px;                             /* más alto para escribir */
+  border: none;
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: #fff;
+  box-shadow: 0 2px 0 rgba(0,0,0,.06) inset;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  resize: none;                                  /* sin redimensionar */
+  outline: none;
+  height: 200px;
+}
+
+
+/* ==================== MODALES (ANUNCIO DE CAMPOS OBLIGATORIOS) ==================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);   /* fondo oscuro 50% */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.is-hidden {
+  display: none;
+}
+
+.modal-box {
+  background: #B2D3C2;              /* verde pastel como en la maqueta */
+  border-radius: 10px;
+  width: min(780px, 90vw);          /* ancho similar a la imagen */
+  padding: 32px 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+}
+
+.modal-box h3 {
+  margin: 0 0 16px;
+  font-weight: 900;
+  font-size: 26px;
+  color: #2D3E50;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modal-msg {
+  margin: 8px 0 28px;
+  font-size: 16px;
+  color: 2D3E50;
+}
+
+/* Botón central */
+.modal-cta {
+  background: #FFB900;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 26px;
+  font-weight: 800;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.25);
+}
+
+.modal-cta:hover {
+  filter: brightness(0.97);
+}
+
+.modal-cta:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Mensajes de error bajo los campos */
+.field-error {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: #C0392B;
+}
+
+/* Borde rojo interior cuando hay error */
+.input-invalid,
+textarea.input-invalid {
+  box-shadow: 0 0 0 2px #E74C3C inset;
+}
+
+/* ==================== RESPONSIVE CONTACTO Y FORMULARIO ==================== */
+
+/* Tablets: aflojar márgenes laterales */
+@media (max-width: 1024px) {
+  .contact-layout {
+    margin: 0 auto;
+    padding: 0 16px;
+    gap: 24px;
+  }
+
+  .contact-form {
+    margin-left: 40px;
+  }
+
+  .form-row input {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+/* Móviles: columnas apiladas y formulario a ancho completo */
+@media (max-width: 768px) {
+  .contact-title {
+    margin: 12px 16px 10px;
+    font-size: 28px;
+  }
+
+  .contact-section {
+    padding: 16px 16px 24px;
+  }
+
+  .contact-layout {
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+    margin: 0 auto;
+    gap: 24px;
+  }
+
+  .contact-form {
+    margin-left: 0;
+    width: 100%;
+    max-width: 520px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr; /* label arriba, input abajo */
+    text-align: left;
+  }
+
+  .form-row label {
+    width: 100%;
+    padding: 10px 12px;
+    height: auto;
+    margin-bottom: 6px;
+    text-align: left;
+  }
+
+  .form-row input {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+/* Pantallas muy pequeñas: ajustar tipografías y paddings */
+@media (max-width: 480px) {
+  .form-title {
+    font-size: 20px;
+  }
+
+  .contact-button {
+    font-size: 18px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .problem-label {
+    font-size: 14px;
+  }
+}
