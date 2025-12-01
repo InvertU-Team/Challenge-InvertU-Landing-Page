@@ -1,115 +1,132 @@
-// app.js (versión con scoping por sección y control de fondo por <body>)
+// ==============================
+//  SPA – Sistema de carga dinámica por scroll
+// ==============================
+
 (() => {
-  // ====== Declaración de secciones a cargar por scroll ======
+  // ====== Declaración de secciones ======
   const sections = [
     {
-      // 1ª sección: carpeta "major"
       sentinelId: "sentinel-1",
       containerId: "primero-container",
-      htmlPath: "assets/index/major.html",
-      cssPath: "assets/styles/major.css",
-      jsPath: "assets/scripts/major.js", // opcional
-      scopeClass: "scope-major"
+      htmlPath: "assets/index/who-we-are.html",
+      cssPath: "assets/styles/who-we-are.css",
+      scopeClass: "scope-who",
     },
     {
-      // 2ª sección: carpeta "guide"
       sentinelId: "sentinel-2",
       containerId: "segundo-container",
-      htmlPath: "assets/index/guide.html",
-      cssPath: "assets/styles/guide.css",
-      // jsPath: null,
-      scopeClass: "scope-guide"
+      htmlPath: "assets/index/testimonials.html",
+      cssPath: "assets/styles/testimonials.css",
+      scopeClass: "scope-testimonials",
     },
     {
-      // 3ª sección: carpeta "funtion" (sic)
       sentinelId: "sentinel-3",
       containerId: "tercero-container",
-      htmlPath: "assets/index/funtion.html",
-      cssPath: "assets/styles/funtion.css",
-      jsPath: "assets/scripts/funtion.js", // opcional
-      scopeClass: "scope-funtion"
+      htmlPath: "assets/index/choose.html",
+      cssPath: "assets/styles/choose.css",
+      scopeClass: "scope-choose",
     },
     {
-      // 4ª sección: carpeta "question"
       sentinelId: "sentinel-4",
       containerId: "cuarto-container",
+      htmlPath: "assets/index/guide.html",
+      cssPath: "assets/styles/guide.css",
+      scopeClass: "scope-guide",
+    },
+    {
+      sentinelId: "sentinel-5",
+      containerId: "quinto-container",
+      htmlPath: "assets/index/funtion.html",
+      cssPath: "assets/styles/funtion.css",
+      jsPath: "assets/scripts/funtion.js",
+      scopeClass: "scope-funtion",
+    },
+    {
+      sentinelId: "sentinel-6",
+      containerId: "sexto-container",
       htmlPath: "assets/index/question.html",
       cssPath: "assets/styles/question.css",
-      jsPath: "assets/scripts/question.js", // opcional
-      scopeClass: "scope-question"
-    }
+      jsPath: "assets/scripts/question.js",
+      scopeClass: "scope-question",
+    },
+    {
+      sentinelId: "sentinel-7",
+      containerId: "septimo-container",
+      htmlPath: "assets/index/news.html",
+      cssPath: "assets/styles/news.css",
+      jsPath: "assets/scripts/news.js",
+      scopeClass: "scope-news",
+    },
+    {
+      sentinelId: "sentinel-8",
+      containerId: "octavo-container",
+      htmlPath: "assets/index/contact.html",
+      cssPath: "assets/styles/contact.css",
+      jsPath: "assets/scripts/contact.js",
+      scopeClass: "scope-contact",
+    },
   ];
 
-  // ====== Utilidad: inyectar CSS evitando duplicados ======
-  const ensureCssLoaded = (href, idHint) => {
+  // ====== Inyectar CSS evitando duplicados ======
+  const ensureCssLoaded = (href) => {
     if (!href) return;
-    const selector = `link[rel="stylesheet"][href="${href}"]`;
-    if (document.head.querySelector(selector)) return; // ya está cargado
+    if (document.head.querySelector(`link[href="${href}"]`)) return;
+
     const link = document.createElement("link");
     link.rel = "stylesheet";
     link.href = href;
-    if (idHint) link.dataset.sectionCss = idHint;
     document.head.appendChild(link);
   };
 
-  // ====== Utilidad: asignar clase al <body> para controlar el fondo ======
-  // - Major usa body.major { background-image: ... }
-  // - Otras secciones usan body.scope-xxx (para que su CSS pueda anular o definir color)
+  // ====== Control de clase global del body ======
   const setBodyScope = (scopeClass) => {
-    if (scopeClass === "scope-major") {
-      document.body.className = "major"; // activa el fondo de Major
-    } else {
-      document.body.className = scopeClass || ""; // p.ej. scope-question, scope-guide, scope-funtion
-    }
+    document.body.className = scopeClass || "";
   };
 
-  // ====== Carga genérica de una sección ======
-  const loadSection = async ({ containerId, htmlPath, cssPath, jsPath, scopeClass }) => {
-    // 1) Inyectar CSS propio de la sección (si no está)
-    ensureCssLoaded(cssPath, scopeClass || "");
+  // ====== Carga de sección ======
+  const loadSection = async ({
+    containerId,
+    htmlPath,
+    cssPath,
+    jsPath,
+    scopeClass,
+  }) => {
+    ensureCssLoaded(cssPath);
 
-    // 2) Traer el HTML remoto (sin caché para ver cambios al instante)
     const res = await fetch(htmlPath, { cache: "no-store" });
     if (!res.ok) throw new Error(`Error al cargar ${htmlPath}: ${res.status}`);
+
     const html = await res.text();
-
-    // 3) Parsear y extraer la primera <section> (o <body> si no hubiera)
     const doc = new DOMParser().parseFromString(html, "text/html");
-    const contenido = doc.querySelector("section") || doc.body;
 
-    // 4) Encapsular estilos de la sección con una clase "scope"
-    if (scopeClass) {
-      contenido.classList?.add(scopeClass);
-      // Si vino como <body> (varios nodos sueltos), envolverlos en un wrapper con la clase
-      if (contenido === doc.body) {
-        const wrapper = document.createElement("div");
-        wrapper.className = scopeClass;
-        while (contenido.firstChild) wrapper.appendChild(contenido.firstChild);
-        contenido.innerHTML = "";
-        contenido.appendChild(wrapper);
-      }
-    }
+    let content = doc.querySelector("section") || doc.body;
+    if (scopeClass) content.classList.add(scopeClass);
 
-    // 5) Cambiar clase del <body> según la sección cargada (controla el fondo)
     setBodyScope(scopeClass);
 
-    // 6) Insertar en el contenedor destino
-    const cont = document.getElementById(containerId);
-    if (cont) cont.appendChild(contenido);
+    const container = document.getElementById(containerId);
+    if (container) container.appendChild(content);
 
-    // 7) (Opcional) Inyectar JS propio de la sección
+    // Cargar JS propio de la sección
     if (jsPath) {
-      const paths = Array.isArray(jsPath) ? jsPath : [jsPath];
-      for (const p of paths) {
-        const s = document.createElement("script");
-        s.src = p;
-        s.defer = true;
-        document.body.appendChild(s);
-      }
+      const script = document.createElement("script");
+      script.src = jsPath;
+      script.defer = true;
+
+      script.onload = () => {
+        if (
+          jsPath.includes("news.js") &&
+          typeof initializeNewsCarousel === "function"
+        ) {
+          initializeNewsCarousel();
+        }
+      };
+
+      document.body.appendChild(script);
     }
   };
 
-  // ====== Inicializa un IntersectionObserver por sección ======
+  // ====== Observadores ======
   const initObservers = () => {
     sections.forEach((section) => {
       let loaded = false;
@@ -120,14 +137,13 @@
             loaded = true;
             try {
               await loadSection(section);
-            } catch (e) {
-              console.error(e);
-            } finally {
-              obs.disconnect();
+            } catch (err) {
+              console.error(err);
             }
+            obs.disconnect();
           }
         },
-        { rootMargin: "200px", threshold: 0 }
+        { rootMargin: "200px" }
       );
 
       const sentinel = document.getElementById(section.sentinelId);
@@ -138,19 +154,65 @@
   window.addEventListener("DOMContentLoaded", initObservers);
 })();
 
-"use strict";
+// ==============================
+//  BÚSQUEDA + NAVBAR
+// ==============================
 
-// ====== Búsqueda / UI header ======
 document.addEventListener("DOMContentLoaded", () => {
-  // ====== Búsqueda ======
+  // ====== Input & botones ======
   const input = document.querySelector(".search-input");
   const clearBtn = document.querySelector(".button-clear");
   const form = document.querySelector(".search-form");
+  const navButtons = document.querySelectorAll(".nav-button");
 
+  // ==========================
+  // ÍNDICE DE ARCHIVOS A BUSCAR
+  // ==========================
+  const searchIndex = [
+    {
+      title: "Nosotros",
+      file: "assets/index/who-we-are.html",
+      section: "sentinel-1",
+    },
+    {
+      title: "Testimonios",
+      file: "assets/index/testimonials.html",
+      section: "sentinel-2",
+    },
+    {
+      title: "Escoge",
+      file: "assets/index/choose.html",
+      section: "sentinel-3",
+    },
+    { title: "Guía", file: "assets/index/guide.html", section: "sentinel-4" },
+    {
+      title: "Funciones",
+      file: "assets/index/funtion.html",
+      section: "sentinel-5",
+    },
+    {
+      title: "Preguntas",
+      file: "assets/index/question.html",
+      section: "sentinel-6",
+    },
+    {
+      title: "Noticias",
+      file: "assets/index/news.html",
+      section: "sentinel-7",
+    },
+    {
+      title: "Contacto",
+      file: "assets/index/contact.html",
+      section: "sentinel-8",
+    },
+  ];
+
+  // ==========================
+  // Limpieza visual del buscador
+  // ==========================
   if (input && clearBtn) {
     input.addEventListener("input", () => {
-      const hasText = input.value.trim().length > 0;
-      clearBtn.classList.toggle("is-visible", hasText);
+      clearBtn.classList.toggle("is-visible", input.value.trim().length > 0);
     });
 
     clearBtn.addEventListener("click", () => {
@@ -160,26 +222,93 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  if (form && input) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const q = input.value.trim();
-      if (!q) return;
-      // TODO: conecta con la búsqueda real
-      console.log("Searching for:", q);
-    });
-  }
+  // ==========================
+  // Lógica del buscador
+  // ==========================
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  // ====== Estado activo de la navegación ======
-  const navButtons = document.querySelectorAll(".nav-button");
+    const query = input.value.trim().toLowerCase();
+    if (!query) return;
+
+    // 1. Buscar por título del índice
+    let match = searchIndex.find((item) =>
+      item.title.toLowerCase().includes(query)
+    );
+
+    if (match) {
+      const section = document.getElementById(match.section);
+      if (section) section.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+
+    // 2. Si no coincide por título → buscar dentro del HTML real
+    for (const item of searchIndex) {
+      try {
+        const res = await fetch(item.file);
+        const html = await res.text();
+        const lower = html.toLowerCase();
+
+        if (lower.includes(query)) {
+          const section = document.getElementById(item.section);
+          if (section) section.scrollIntoView({ behavior: "smooth" });
+          return;
+        }
+      } catch {
+        console.warn("No se pudo leer:", item.file);
+      }
+    }
+
+    console.log("Sin resultados para:", query);
+  });
+
+  // ==========================
+  // NAVBAR → Scroll interno SPA
+  // ==========================
+  const pageToSentinel = {
+    principales: "sentinel-1",
+    nosotros: "sentinel-1",
+    testimonios: "sentinel-2",
+    funciones: "sentinel-3",
+    guia: "sentinel-4",
+  };
+
   navButtons.forEach((btn) => {
     btn.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const page = e.currentTarget.dataset.page;
+      const targetId = pageToSentinel[page];
+      const sentinel = document.getElementById(targetId);
+
+      if (sentinel) {
+        sentinel.scrollIntoView({ behavior: "smooth" });
+      }
+
       navButtons.forEach((b) => b.classList.remove("active"));
-      e.currentTarget.classList.add("active");
-      console.log(
-        "Navegación simulada a la sección:",
-        e.currentTarget.getAttribute("data-page")
-      );
+      btn.classList.add("active");
     });
   });
+
+  // ====== Detectar hash para navegar automáticamente ======
+  const hash = window.location.hash.replace("#", "");
+
+  if (hash) {
+    const pageToSentinel = {
+      principales: "sentinel-1",
+      nosotros: "sentinel-1",
+      testimonios: "sentinel-2",
+      funciones: "sentinel-3",
+      guia: "sentinel-4",
+    };
+
+    const targetId = pageToSentinel[hash];
+    const target = document.getElementById(targetId);
+
+    if (target) {
+      setTimeout(() => {
+        target.scrollIntoView({ behavior: "smooth" });
+      }, 300); // Espera un poco a que carguen las secciones
+    }
+  }
 });
