@@ -1,0 +1,178 @@
+/* ======== SECCIÓN GENERAL ======== */
+body {
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    background: #ffffff;
+}
+
+.news-section {
+    padding: 60px 0;
+    background: #ffffff;
+}
+
+.section-title-amber {
+    color: #FFB900;
+    font-size: 38px;
+    font-weight: 900;
+    margin: 60px 40px 5px 40px;
+}
+
+.section-subtitle {
+    color: #2d3e50;
+    font-size: 18px;
+    margin: 25px 40px 50px 40px;
+}
+
+/* ======== CARRUSEL DE NOTICIAS ======== */
+
+.carousel-wrapper {
+    background: #B2D3C2;
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-container {
+    display: flex;
+    gap: 30px;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    width: calc(4 * 320px + 3 * 30px);
+    margin: auto;
+}
+
+/* ======== CARDS/noticias ======== */
+
+.news-card {
+    background: #dadedc;
+    width: 320px;
+    height: 300px;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.news-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.news-card p {
+    padding: 10px 15px;
+    color: #2d3e50;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.news-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+}
+
+/* ======== BOTONES ======== */
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: #1F8A4A;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    transition: 0.2s ease;
+    z-index: 10;
+}
+
+.carousel-button:hover {
+    background: #239353;
+}
+
+.carousel-button:disabled {
+    background: #9ebfad;
+    cursor: not-allowed;
+}
+
+.carousel-button.left {
+    left: 10px;
+}
+
+.carousel-button.right {
+    right: 10px;
+}
+
+/* ======== DISEÑO RESPONSIVO ======== */
+
+/* Tablets horizontales y pantallas medianas */
+@media (max-width: 1200px) {
+    .carousel-container {
+        width: calc(3 * 320px + 2 * 30px);
+        /* 3 tarjetas visibles */
+    }
+}
+
+/* Tablets verticales */
+@media (max-width: 900px) {
+    .carousel-container {
+        width: calc(2 * 280px + 1 * 25px);
+        /* 2 tarjetas visibles */
+        gap: 25px;
+    }
+
+    .news-card {
+        width: 280px;
+        height: 280px;
+    }
+}
+
+/* Celulares grandes */
+@media (max-width: 600px) {
+    .carousel-wrapper {
+        padding: 20px;
+    }
+
+    .carousel-container {
+        width: 280px;
+        /* 1 tarjeta visible */
+        gap: 20px;
+    }
+
+    .news-card {
+        width: 260px;
+        height: 260px;
+    }
+
+    .news-card img {
+        height: 160px;
+    }
+
+    .carousel-button {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+}
+
+/* Celulares pequeños */
+@media (max-width: 400px) {
+    .carousel-container {
+        width: 230px;
+    }
+
+    .news-card {
+        width: 220px;
+        height: 240px;
+    }
+
+    .news-card img {
+        height: 140px;
+    }
+}
