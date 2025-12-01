@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario de Registro</title>
+    <link rel="stylesheet" href="../styles/forms.css" />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="stylesheet" href="../styles/rate.css" />
+  </head>
+
+  <body>
+    <header class="navbar">
+      <div class="logo-container">
+        <a href="../../index.html">
+          <img src="../images/logo.png" alt="InvertU Logo" class="logo-icon" />
+        </a>
+      </div>
+
+      <nav class="nav-links" aria-label="Primaria">
+        <a href="#" class="nav-button" data-page="principales">Principales</a>
+        <a href="#" class="nav-button" data-page="nosotros">Nosotros</a>
+        <a href="#" class="nav-button" data-page="funciones">Funciones</a>
+        <a href="#" class="nav-button" data-page="testimonios">Testimonios</a>
+        <a href="#" class="nav-button" data-page="guia">Guía de uso</a>
+
+        <form
+          role="search"
+          class="search-form"
+          action=""
+          method="get"
+          novalidate
+          aria-label="Buscar en el sitio"
+        >
+          <section class="search-box" aria-label="Search">
+            <button type="submit" class="button-icon" aria-label="Buscar">
+              <img src="../images/search.png" alt="Search icon" class="icon" />
+            </button>
+
+            <input
+              class="search-input"
+              type="search"
+              name="q"
+              placeholder="Buscar"
+              autocomplete="off"
+              enterkeyhint="search"
+              aria-label="Search query"
+            />
+
+            <button
+              type="button"
+              class="button-icon button-clear"
+              aria-label="Limpiar búsqueda"
+            >
+              <img
+                src="../images/clear.png"
+                alt="Clear search icon"
+                class="icon"
+              />
+            </button>
+
+            <button
+              type="button"
+              class="button-icon"
+              aria-label="Búsqueda por voz"
+            >
+              <img
+                src="../images/microphone.png"
+                alt="Microphone icon"
+                class="icon"
+              />
+            </button>
+          </section>
+        </form>
+      </nav>
+    </header>
+    <section>
+      <section class="container">
+        <!-- Imagen izquierda -->
+        <section class="image-box">
+          <img
+            src="../images/avatar-ia.png"
+            alt="Imagen que de aura"
+            class="form-image"
+          />
+        </section>
+
+        <!-- Formulario derecha -->
+        <section class="register-box">
+          <h1 class="title-register">¡Regístrate Aquí!</h1>
+
+          <form class="form-register">
+            <input type="text" class="input-text" placeholder="Nombres*" />
+            <input
+              type="text"
+              class="input-text"
+              placeholder="Apellido Paterno*"
+            />
+            <input
+              type="text"
+              class="input-text"
+              placeholder="Apellido Materno*"
+            />
+            <input type="text" class="input-text" placeholder="Universidad*" />
+            <input type="text" class="input-text" placeholder="Celular*" />
+            <input type="email" class="input-text" placeholder="Email*" />
+
+            <section class="consent-box">
+              <label>
+                <input type="checkbox" class="terms-check" />
+                Autorizo el tratamiento de mis datos personales para finalidades
+                informativas. *
+              </label>
+            </section>
+
+            <section class="consent-box">
+              <label>
+                <input type="checkbox" class="terms-check" />
+                Opcionalmente autorizo el tratamiento de mis datos personales
+                para finalidades comerciales. *
+              </label>
+            </section>
+            <section class="btn-container">
+              <button type="submit" class="btn-submit">Registrarse</button>
+            </section>
+          </form>
+        </section>
+      </section>
+
+      <!-- Modal de éxito -->
+      <section id="modal-exito" class="modal">
+        <div class="modal-content">
+          <h2>Registro Exitoso</h2>
+          <p>Gracias por registrarse. Pronto recibirás más información.</p>
+          <button id="btnCerrar" class="btn-modal">Aceptar</button>
+        </div>
+      </section>
+
+      <!-- SCRIPT EXTERNO -->
+      <script src="../scripts/forms.js"></script>
+    </section>
+
+    <div class="rate-space"></div>
+
+    <footer class="rate-footer">
+      <nav class="rate-footer-content">
+        <div class="rate-footer-card">
+          <img class="rate-footer-logo" src="../images/inverTu.png" />
+          <p class="rate-footer-text">Copyright © 2020 Landify UI Kit</p>
+          <p class="rate-footer-text">All rights reserved</p>
+        </div>
+
+        <div class="rate-footer-card">
+          <h2 class="rate-footer-title">Compañía</h2>
+          <div class="rate-footer-links">
+            <p>Sobre nosotros</p>
+            <p>Blog</p>
+            <p>Contáctanos</p>
+            <p>Testimonio</p>
+          </div>
+        </div>
+
+        <div class="rate-footer-card">
+          <h2 class="rate-footer-title">Soporte</h2>
+          <div class="rate-footer-links">
+            <p>Centro de ayuda</p>
+            <p>Términos y condiciones</p>
+            <p>Política de privacidad</p>
+            <p>Estado</p>
+          </div>
+        </div>
+
+        <div class="rate-footer-card">
+          <h2 class="rate-footer-title">Mantente conectado</h2>
+          <div class="rate-footer-email">
+            <input
+              type="email"
+              placeholder="Correo electrónico"
+              class="rate-email-input"
+            />
+            <button class="rate-email-send">▶</button>
+          </div>
+        </div>
+      </nav>
+    </footer>
+
+    <script>
+      const navButtons = document.querySelectorAll(".nav-button");
+
+      navButtons.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+
+          const section = e.currentTarget.dataset.page;
+
+          // Redirige al index con hash (ej: #nosotros)
+          window.location.href = `../../index.html#${section}`;
+        });
+      });
+    </script>
+  </body>
+</html>
