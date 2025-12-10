@@ -1,4 +1,4 @@
-**Producto: InvertU<br>
+**Producto: InvertU**<br>
 Proyecto Grupo 3 <br>
 InvertU es una aplicación móvil disponible tanto en ANDROID como en IOS que busca implementar tecnologías 
 de vanguardia como la big data e inteligencia artificial para analizar el patrón de gastos de los estudiantes 
